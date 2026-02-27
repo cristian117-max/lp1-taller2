@@ -5,28 +5,20 @@ Objetivo: Crear un cliente TCP que envíe un mensaje al servidor y reciba la mis
 """
 
 import socket
+HOST = "localhost"
+PORT = 9000
 
-# TODO: Definir la dirección y puerto del servidor
 
-# Solicitar mensaje al usuario por consola
-message = input("Mensaje: ")
+mensaje = input("Digite tu mensage: ")
+cliente = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+cliente.connect((HOST, PORT))
 
-# TODO: Crear un socket TCP/IP
-# AF_INET: socket de familia IPv4
-# SOCK_STREAM: socket de tipo TCP (orientado a conexión)
 
-# TODO: Conectar el socket al servidor en la dirección y puerto especificados
+cliente.sendall(mensaje.encode())
+print(f"Mensaje enviados: '{mensaje}'")    
 
-# Mostrar mensaje que se va a enviar
-print(f"Mensaje '{message}' enviado.")
 
-# TODO: Codificar el mensaje a bytes y enviarlo al servidor
-# sendall() asegura que todos los datos sean enviados
+respuesta = cliente.recv(1024) 
+print(f"Respuesta del 'Echo': '{respuesta.decode()}'") 
 
-# TODO: Recibir datos del servidor (hasta 1024 bytes)
-
-# Decodificar e imprimir los datos recibidos
-print("Mensaje recibido: ", data.decode())
-
-# TODO: Cerrar la conexión con el servidor
-
+cliente.close()
